@@ -171,10 +171,6 @@ export default function Layout({ children }: LayoutProps) {
               <p className="text-sm text-gray-300">
                 © 2024 YellowSense Technologies. All rights reserved.
               </p>
-              <p className="text-xs text-gray-400 mt-1 flex items-center gap-1 justify-center md:justify-start">
-                <span>🔒</span>
-                Secured by Confidential Computing Technology
-              </p>
             </div>
 
             {/* Right: Links */}
@@ -204,11 +200,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
 
           {/* Bottom Line */}
-          <div className="mt-6 pt-6 border-t border-gray-700">
-            <p className="text-center text-xs text-gray-400">
-              Powered by AI • Built with ❤️ • Secured by Zero-Trust Architecture
-            </p>
-          </div>
+          <div className="mt-6 pt-6 border-t border-gray-700"></div>
         </div>
 
         <style jsx>{`
