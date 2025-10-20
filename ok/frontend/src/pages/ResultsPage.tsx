@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+// removed unused MotionCard import
 import {
   Download,
   FileText,
@@ -17,9 +18,7 @@ import {
 import Papa from "papaparse";
 import toast from "react-hot-toast";
 
-interface CSVRow {
-  [key: string]: string | number;
-}
+// removed unused CSVRow interface
 
 interface ResultData {
   beneficiaryId: string;
@@ -79,7 +78,7 @@ export default function ResultsPage() {
           setResults(data);
           toast.success("Results loaded successfully!");
         },
-        error: (error) => {
+        error: (_error: unknown) => {
           // console.error("CSV Parse Error:", error);
           toast.error("Failed to parse results");
         },

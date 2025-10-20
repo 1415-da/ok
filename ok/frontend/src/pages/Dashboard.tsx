@@ -8,15 +8,12 @@ import {
   CheckCircle,
   Clock,
   PlayCircle,
-  AlertCircle,
   ArrowRight,
   Loader2,
   Database,
   Activity,
 } from "lucide-react";
 import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
   XAxis,
@@ -29,8 +26,9 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import api, { handleApiError, DashboardStats } from "../services/api";
-import toast from "react-hot-toast";
+import api, { DashboardStats } from "../services/api";
+
+import MotionCard from "../components/ui/MotionCard";
 
 const COLORS = ["#f59e0b", "#10b981", "#3b82f6", "#ef4444", "#8b5cf6"];
 
@@ -158,19 +156,30 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {statCards.map((stat, index) => {
             const Icon = stat.icon;
+            const palette = [
+              { bg: "bg-primary-100", text: "text-primary-600" },
+              { bg: "bg-warning-100", text: "text-warning-600" },
+              { bg: "bg-success-100", text: "text-success-600" },
+              { bg: "bg-info-100", text: "text-info-600" },
+            ];
+            const cx = palette[index] || palette[0];
             return (
-              <motion.div
+              <MotionCard
                 key={stat.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="stat-card group hover:scale-105 transition-transform duration-200"
+                innerClassName="p-6"
+                hoverScale={1.03}
+                hoverLift={4}
+                glow
+                spotlight
               >
                 <div className="flex items-center justify-between mb-4">
                   <div
-                    className={`p-3 rounded-xl bg-${stat.color}-100 group-hover:shadow-lg transition-shadow`}
+                    className={`p-3 rounded-xl ${cx.bg} group-hover:shadow-lg transition-shadow`}
                   >
-                    <Icon className={`w-6 h-6 text-${stat.color}-600`} />
+                    <Icon className={`w-6 h-6 ${cx.text}`} />
                   </div>
                   <div className="flex items-center gap-1 text-success-600 text-sm font-medium">
                     <TrendingUp className="w-4 h-4" />
@@ -181,7 +190,7 @@ export default function Dashboard() {
                   {stat.title}
                 </h3>
                 <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-              </motion.div>
+              </MotionCard>
             );
           })}
         </div>
@@ -189,11 +198,13 @@ export default function Dashboard() {
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Workflow Activity Chart */}
-          <motion.div
+          <MotionCard
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="card"
+            innerClassName="p-6"
+            hoverScale={1.01}
+            hoverLift={2}
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
@@ -228,14 +239,16 @@ export default function Dashboard() {
                 />
               </BarChart>
             </ResponsiveContainer>
-          </motion.div>
+          </MotionCard>
 
           {/* Status Distribution */}
-          <motion.div
+          <MotionCard
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
-            className="card"
+            innerClassName="p-6"
+            hoverScale={1.01}
+            hoverLift={2}
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
@@ -257,7 +270,7 @@ export default function Dashboard() {
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {statusData.map((entry, index) => (
+                  {statusData.map((_, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={COLORS[index % COLORS.length]}
@@ -267,15 +280,17 @@ export default function Dashboard() {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
-          </motion.div>
+          </MotionCard>
         </div>
 
         {/* Recent Workflows */}
-        <motion.div
+        <MotionCard
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="card"
+          innerClassName="p-6"
+          hoverScale={1.01}
+          hoverLift={2}
         >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
@@ -347,7 +362,7 @@ export default function Dashboard() {
               </button>
             </div>
           )}
-        </motion.div>
+        </MotionCard>
 
         {/* Quick Actions */}
         <motion.div
@@ -356,15 +371,23 @@ export default function Dashboard() {
           transition={{ delay: 0.7 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8"
         >
-          <div className="card bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-200 hover:shadow-lg transition-shadow cursor-pointer">
+          <MotionCard
+            innerClassName="p-6 bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-200"
+            hoverScale={1.02}
+            hoverLift={3}
+          >
             <Database className="w-8 h-8 text-primary-600 mb-3" />
             <h3 className="font-semibold text-gray-900 mb-2">Upload Data</h3>
             <p className="text-sm text-gray-600">
               Securely upload your datasets for analysis
             </p>
-          </div>
+          </MotionCard>
 
-          <div className="card bg-gradient-to-br from-success-50 to-success-100 border border-success-200 hover:shadow-lg transition-shadow cursor-pointer">
+          <MotionCard
+            innerClassName="p-6 bg-gradient-to-br from-success-50 to-success-100 border border-success-200"
+            hoverScale={1.02}
+            hoverLift={3}
+          >
             <Activity className="w-8 h-8 text-success-600 mb-3" />
             <h3 className="font-semibold text-gray-900 mb-2">
               Monitor Workflows
@@ -372,15 +395,19 @@ export default function Dashboard() {
             <p className="text-sm text-gray-600">
               Track the progress of your running workflows
             </p>
-          </div>
+          </MotionCard>
 
-          <div className="card bg-gradient-to-br from-info-50 to-info-100 border border-info-200 hover:shadow-lg transition-shadow cursor-pointer">
+          <MotionCard
+            innerClassName="p-6 bg-gradient-to-br from-info-50 to-info-100 border border-info-200"
+            hoverScale={1.02}
+            hoverLift={3}
+          >
             <CheckCircle className="w-8 h-8 text-info-600 mb-3" />
             <h3 className="font-semibold text-gray-900 mb-2">View Results</h3>
             <p className="text-sm text-gray-600">
               Access and download your analysis results
             </p>
-          </div>
+          </MotionCard>
         </motion.div>
       </div>
     </div>

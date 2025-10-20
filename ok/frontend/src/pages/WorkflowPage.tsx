@@ -12,6 +12,7 @@ import {
   User,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import MotionCard from "../components/ui/MotionCard";
 import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 
@@ -250,7 +251,12 @@ export default function WorkflowPage() {
           transition={{ delay: 0.1 }}
           className="mb-8"
         >
-          <div className="card max-w-2xl mx-auto">
+          <MotionCard
+            className="max-w-2xl mx-auto"
+            innerClassName="p-6"
+            hoverScale={1.01}
+            hoverLift={2}
+          >
             <h2 className="text-xl font-bold text-gray-900 mb-4 text-center">
               Select Your Role
             </h2>
@@ -403,7 +409,7 @@ export default function WorkflowPage() {
                 </ul>
               </div>
             </div>
-          </div>
+          </MotionCard>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -414,7 +420,7 @@ export default function WorkflowPage() {
             transition={{ delay: 0.1 }}
             className="lg:col-span-2"
           >
-            <div className="card">
+            <MotionCard innerClassName="p-6" hoverScale={1.01} hoverLift={2}>
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                   <FileText className="w-6 h-6 text-primary-500" />
@@ -429,7 +435,7 @@ export default function WorkflowPage() {
               {/* Accounts File Upload */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Accounts Training Data (CSV)
+                  Data (CSV)
                 </label>
                 <div className="relative">
                   <input
@@ -461,9 +467,7 @@ export default function WorkflowPage() {
                     ) : (
                       <>
                         <Upload className="w-5 h-5 text-gray-400" />
-                        <span className="text-gray-600">
-                          Click to upload accounts_train.csv
-                        </span>
+                        <span className="text-gray-600">Click to upload</span>
                       </>
                     )}
                   </label>
@@ -473,7 +477,7 @@ export default function WorkflowPage() {
               {/* Transactions File Upload */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Transactions Training Data (CSV)
+                  Data (CSV)
                 </label>
                 <div className="relative">
                   <input
@@ -505,9 +509,7 @@ export default function WorkflowPage() {
                     ) : (
                       <>
                         <Upload className="w-5 h-5 text-gray-400" />
-                        <span className="text-gray-600">
-                          Click to upload transactions_train.csv
-                        </span>
+                        <span className="text-gray-600">Click to upload</span>
                       </>
                     )}
                   </label>
@@ -555,7 +557,7 @@ export default function WorkflowPage() {
                   </p>
                 </div>
               )}
-            </div>
+            </MotionCard>
           </motion.div>
 
           {/* Right: Status & Progress */}
@@ -566,7 +568,7 @@ export default function WorkflowPage() {
             className="space-y-6"
           >
             {/* Status Card */}
-            <div className="card">
+            <MotionCard innerClassName="p-6" hoverScale={1.01} hoverLift={2}>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Processing Status
               </h3>
@@ -667,10 +669,14 @@ export default function WorkflowPage() {
                   );
                 })}
               </div>
-            </div>
+            </MotionCard>
 
             {/* Info Card */}
-            <div className="card bg-gradient-to-br from-info-50 to-info-100 border border-info-200">
+            <MotionCard
+              innerClassName="p-6 bg-gradient-to-br from-info-50 to-info-100 border border-info-200"
+              hoverScale={1.01}
+              hoverLift={2}
+            >
               <h4 className="font-semibold text-info-900 mb-2 flex items-center gap-2">
                 🔒 Secure Processing
               </h4>
@@ -688,14 +694,16 @@ export default function WorkflowPage() {
                   </p>
                 </div>
               )}
-            </div>
+            </MotionCard>
 
             {/* Stats */}
             {(accountsFile || transactionsFile) && (
-              <motion.div
+              <MotionCard
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="card bg-gradient-to-br from-success-50 to-success-100 border border-success-200"
+                innerClassName="p-6 bg-gradient-to-br from-success-50 to-success-100 border border-success-200"
+                hoverScale={1.01}
+                hoverLift={2}
               >
                 <h4 className="font-semibold text-success-900 mb-3">
                   Files Ready
@@ -718,7 +726,7 @@ export default function WorkflowPage() {
                     </div>
                   )}
                 </div>
-              </motion.div>
+              </MotionCard>
             )}
           </motion.div>
         </div>

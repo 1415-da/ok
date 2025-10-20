@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, PlayCircle, FileText, Menu, X } from "lucide-react";
+import { LayoutDashboard, PlayCircle, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
@@ -203,7 +203,7 @@ export default function Layout({ children }: LayoutProps) {
           <div className="mt-6 pt-6 border-t border-gray-700"></div>
         </div>
 
-        <style jsx>{`
+        <style>{`
           @keyframes blob {
             0% {
               transform: translate(0px, 0px) scale(1);
